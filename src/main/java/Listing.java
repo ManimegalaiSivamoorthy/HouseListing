@@ -1,13 +1,17 @@
 import Properties.BathDetails;
 import Properties.HouseDetails;
 import Properties.RoomDetails;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Listing {
+    static Logger logger = Logger.getLogger(Listing.class);
     public static void main(String[] args) {
+        BasicConfigurator.configure();
         Integer chooseOption;
         System.out.print("choose one of the option given below:" + "\n" + "1.Buy" + "\n" + "2.Sell" +"\n");
         System.out.print("Enter your option:");
