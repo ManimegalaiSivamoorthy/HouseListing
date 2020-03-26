@@ -1,4 +1,4 @@
-package Properties;
+package model;
 
 
 public class BathDetails {

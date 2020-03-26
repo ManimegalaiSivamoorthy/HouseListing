@@ -1,6 +1,6 @@
-import Properties.BathDetails;
-import Properties.HouseDetails;
-import Properties.RoomDetails;
+import model.BathDetails;
+import model.HouseDetails;
+import model.RoomDetails;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
