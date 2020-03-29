@@ -3,13 +3,38 @@ package service;
 import model.BathDetails;
 import model.HouseDetails;
 import model.RoomDetails;
+import org.apache.log4j.Logger;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class SellPropertyService {
-    public void getHouseDetailsFromUser(Scanner scanner, HouseDetails houseDetails){
+    Logger logger = Logger.getLogger(SellPropertyService.class);
+    public void processSellProperty() {
+        HouseDetails houseDetails = new HouseDetails();
+        getHouseDetailsFromUser(houseDetails);
+        String fileName = houseDetails.getDoorNo() + "_" + houseDetails.getStreet() + "_" + houseDetails.getCity() + "_"
+                + houseDetails.getState() + ".txt";
+        try {
+            writeToFile(descriptionOfHouse(houseDetails), fileName );
+        } catch (IOException exception) {
+            logger.info("Exception Caught while working on file: "+ exception );
+        }
+    }
+
+    public void writeToFile(String fileContent, String filename) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("houses\\" + filename));
+        bufferedWriter.write(fileContent);
+        bufferedWriter.close();
+    }
+
+    public void getHouseDetailsFromUser(HouseDetails houseDetails){
+        Scanner scanner = new Scanner(System.in);
         System.out.print("Enter no of rooms:");
         houseDetails.setNoOfRooms(scanner.nextInt());
         System.out.print("Enter the square feet of the house:");
@@ -74,5 +99,70 @@ public class SellPropertyService {
             baths.add(bathDetails);
         }
         houseDetails.setBaths(baths);
+    }
+
+    public String descriptionOfHouse(HouseDetails houseDetails){
+        String houseDescription;
+        String lawnDetails;
+        String basementDetails;
+        String patioDetails;
+        String houseFurnished;
+        String finalRoomDescription = "";
+        String finalBathDescription = "";
+
+        if(houseDetails.getLawnPresent()){
+            lawnDetails = "The house has a nice lawn.";
+        }else{
+            lawnDetails = "The house does not have a lawn. \n";
+        }
+        if(houseDetails.getBasementFinished()){
+            basementDetails = "The house has finished basement. \n";
+        }else{
+            basementDetails = "The house does not have finished basement. \n";
+        }
+        if(houseDetails.getPatioPresent()){
+            patioDetails = "The house has nice patio. \n";
+        }else{
+            patioDetails = "The house does not have patio. \n";
+        }
+        if(houseDetails.getFurnished()){
+            houseFurnished = "The house is fully furnished. \n";
+        }else{
+            houseFurnished = "The house is not fully furnished. \n";
+        }
+
+        if (houseDetails.getRooms().size() > 0) {
+            finalRoomDescription = "Room Details: \n";
+            List<RoomDetails> rooms = houseDetails.getRooms();
+            for (int i = 0; i < rooms.size(); i++) {
+                String roomDescription;
+                RoomDetails room = rooms.get(i);
+                roomDescription = "\tRoom " + (i + 1) + " is " + room.getRoomType() + ", room's floor type is " + room.getFloorType()
+                        + ", room is " + room.getRoomSqFt() + " square feet" + ", room is located at " + room.getFloorNoWhereRoomLocated()
+                        + " floor." + "\n";
+                finalRoomDescription = finalRoomDescription + roomDescription;
+            }
+        }
+
+        if(houseDetails.getBaths().size() > 0){
+            finalBathDescription = "Bath Details: \n";
+            List<BathDetails> baths = houseDetails.getBaths();
+            for(int i = 0 ; i < baths.size(); i++){
+                String bathDescription;
+                BathDetails bath = baths.get(i);
+                bathDescription = "\tBath " + (i + 1) + " is " + bath.getBathSize() + " and has " + bath.getBathType() + "." + "\n";
+                finalBathDescription = finalBathDescription + bathDescription;
+            }
+        }
+
+        houseDescription = "The house comprises of "+ houseDetails.getNoOfRooms() + " rooms." + "\n" + "The house is " +
+                houseDetails.getSqFtOfHouse() + " Square feet." + "\n" + "The house has a " + houseDetails.getGarageSize()
+                + " car garage. \n" + "It has " + houseDetails.getNoOfBath() + " baths" + "\n" + "Its a "+ houseDetails.getNoOfFloor()
+                + " level house. \n" + lawnDetails + basementDetails + patioDetails + houseFurnished + "Property is located at "
+                + houseDetails.getDoorNo() + ", " + houseDetails.getStreet() + ", " + houseDetails.getCity() + ", " +
+                houseDetails.getState() + "-" + houseDetails.getZipCode() + ". \n" + finalRoomDescription + finalBathDescription;
+
+        System.out.print(houseDescription);
+        return houseDescription;
     }
 }

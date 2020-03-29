@@ -71,7 +71,7 @@ public class HouseDetails {
     public String getStreet(){
         return street;
     }
-    public void setStreet(String Street){
+    public void setStreet(String street){
         this.street = street;
     }
     public String getCity(){
@@ -104,13 +104,13 @@ public class HouseDetails {
     public void setFurnished(Boolean furnished){
         isFurnished = furnished;
     }
-    public List getRooms(){
+    public List<RoomDetails> getRooms(){
         return rooms;
     }
     public void setRooms(List rooms){
         this.rooms = rooms;
     }
-    public List getBaths(){
+    public List<BathDetails> getBaths(){
         return baths;
     }
     public void setBaths(List<BathDetails> baths){
