@@ -27,6 +27,7 @@ public class Listing {
         switch (optionSelected) {
             case 1:
                 System.out.print("This feature is under construction. Please come back soon.");
+                break;
             case 2:
                 sellPropertyService.processSellProperty();
                 break;
