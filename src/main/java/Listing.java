@@ -17,20 +17,25 @@ public class Listing {
     }
 
     private static void processListing(){
-        Integer chooseOption;
+        Integer optionSelected;
         System.out.print("choose one of the option given below:" + "\n" + "1.Buy" + "\n" + "2.Sell" +"\n" + "3.View existing property details" + "\n");
         System.out.print("Enter your option:");
         Scanner scanner = new Scanner(System.in);
-        chooseOption = scanner.nextInt();
+        optionSelected = scanner.nextInt();
         HouseDetails houseDetails = new HouseDetails();
         SellPropertyService sellPropertyService = new SellPropertyService();
-        if(chooseOption == 1){
-            sellPropertyService.processSellProperty();
-        }else if (chooseOption == 3 ){
-            sellPropertyService.readAFile(sellPropertyService.getInputFromUserToReadExistingProperty());
-            }
-        else{
-            System.out.print("This feature is under construction. Please come back soon.");
+        switch (optionSelected) {
+            case 1:
+                System.out.print("This feature is under construction. Please come back soon.");
+            case 2:
+                sellPropertyService.processSellProperty();
+                break;
+            case 3:
+                sellPropertyService.readAFile(sellPropertyService.getInputFromUserToReadExistingProperty());
+                break;
+            default:
+                System.out.print("Bad option selected.");
+                break;
         }
 
     }

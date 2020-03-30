@@ -186,36 +186,22 @@ public class SellPropertyService {
     }
 
     public void readAFile(String searchFileName){
-      //  BufferedReader bufferedReader = new BufferedReader(new FileReader("F:\\Learning\\HouseLitsting\\houses"));
-       // File file1 = null;
-        //String existingFile = file1.getName();
-       /* File folder = new File("houses\\");
-        File [] listOfFiles = folder.listFiles();
-        for(int i = 0; i < listOfFiles.length; i++){
-            if(listOfFiles[i].getName().equals(searchFileName)){
-                System.out.print("The property is available in the listing");
-            }else{
-                System.out.print("no such property is available in the listing. Sorry for inconvenience.");
-            }
-        }*/
         File file = new File("houses\\"+ searchFileName);
         if(file.exists()){
-            System.out.print("The property is available in the listing");
-            getTheContentFromFile(file);
+            ReadTheContentOfFile(file);
         }else{
 
             System.out.print("no such property is available in the listing. Sorry for inconvenience.");
         }
     }
 
-    public void getTheContentFromFile(File file) {
+    public void ReadTheContentOfFile(File file) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             List<String> houseContent = new ArrayList<>();
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 houseContent.add(line);
-                // System.out.println(line);
             }
             System.out.print(houseContent);
         }
