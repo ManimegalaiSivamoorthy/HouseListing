@@ -6,7 +6,7 @@ public class RoomDetails {
     String floorType;
     Integer floorNoWhereRoomLocated;
 
-    public String getRoomType(){
+    public String  getRoomType(){
         return roomType;
     }
     public void setRoomType(String  roomType){
