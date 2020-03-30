@@ -25,7 +25,7 @@ public class Listing {
         HouseDetails houseDetails = new HouseDetails();
         if(chooseOption == 1){
             SellPropertyService sellPropertyService = new SellPropertyService();
-            sellPropertyService.getHouseDetailsFromUser(scanner, houseDetails);
+            sellPropertyService.processSellProperty();
         }else {
             System.out.print("This feature is under construction. Please come back soon.");
         }
