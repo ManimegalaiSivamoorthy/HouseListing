@@ -15,6 +15,8 @@ public class SellPropertyService {
     public void processSellProperty() {
         HouseDetails houseDetails = new HouseDetails();
         getHouseDetailsFromUser(houseDetails);
+        ValidationService validationService = new ValidationService();
+        validationService.validateHouseDetails(houseDetails);
         String fileName = houseDetails.getDoorNo() + "_" + houseDetails.getStreet() + "_" + houseDetails.getCity() + "_"
                 + houseDetails.getState() + ".txt";
         try {

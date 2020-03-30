@@ -24,13 +24,16 @@ public class Listing {
         chooseOption = scanner.nextInt();
         HouseDetails houseDetails = new HouseDetails();
         SellPropertyService sellPropertyService = new SellPropertyService();
-        if(chooseOption == 1){
-            sellPropertyService.processSellProperty();
-        }else if (chooseOption == 3 ){
-            sellPropertyService.readAFile(sellPropertyService.getInputFromUserToReadExistingProperty());
-            }
-        else{
-            System.out.print("This feature is under construction. Please come back soon.");
+        switch (chooseOption) {
+            case 1:
+                sellPropertyService.processSellProperty();
+                break;
+            case 3:
+                sellPropertyService.readAFile(sellPropertyService.getInputFromUserToReadExistingProperty());
+                break;
+            default:
+                System.out.print("This feature is under construction. Please come back soon.");
+                break;
         }
 
     }
