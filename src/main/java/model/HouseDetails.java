@@ -1,4 +1,4 @@
-package Properties;
+package model;
 
 import java.util.List;
 
