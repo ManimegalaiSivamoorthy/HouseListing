@@ -5,10 +5,7 @@ import model.HouseDetails;
 import model.RoomDetails;
 import org.apache.log4j.Logger;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,6 +22,7 @@ public class SellPropertyService {
         } catch (IOException exception) {
             logger.info("Exception Caught while working on file: "+ exception );
         }
+
     }
 
     public void writeToFile(String fileContent, String filename) throws IOException {
@@ -164,5 +162,66 @@ public class SellPropertyService {
 
         System.out.print(houseDescription);
         return houseDescription;
+    }
+
+    public String getInputFromUserToReadExistingProperty(){
+        Integer doorNo;
+        String streetName;
+        String cityName;
+        String stateName;
+        Integer zipCode;
+        System.out.print("Enter the door no the property:");
+        Scanner scanner = new Scanner(System.in);
+        doorNo = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter the Street name where the property is located:");
+        streetName = scanner.nextLine();
+        System.out.print("Enter the city name where the property is located:");
+        cityName = scanner.nextLine();
+        System.out.print("Enter the state name where the property is located:");
+        stateName = scanner.nextLine();
+        System.out.print("Enter the zipcode of the preoperty:");
+        zipCode = scanner.nextInt();
+        return doorNo + "_" + streetName + "_" + cityName + "_"+ stateName + ".txt";
+    }
+
+    public void readAFile(String searchFileName){
+      //  BufferedReader bufferedReader = new BufferedReader(new FileReader("F:\\Learning\\HouseLitsting\\houses"));
+       // File file1 = null;
+        //String existingFile = file1.getName();
+       /* File folder = new File("houses\\");
+        File [] listOfFiles = folder.listFiles();
+        for(int i = 0; i < listOfFiles.length; i++){
+            if(listOfFiles[i].getName().equals(searchFileName)){
+                System.out.print("The property is available in the listing");
+            }else{
+                System.out.print("no such property is available in the listing. Sorry for inconvenience.");
+            }
+        }*/
+        File file = new File("houses\\"+ searchFileName);
+        if(file.exists()){
+            System.out.print("The property is available in the listing");
+            getTheContentFromFile(file);
+        }else{
+
+            System.out.print("no such property is available in the listing. Sorry for inconvenience.");
+        }
+    }
+
+    public void getTheContentFromFile(File file) {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            List<String> houseContent = new ArrayList<>();
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                houseContent.add(line);
+                // System.out.println(line);
+            }
+            System.out.print(houseContent);
+        }
+        catch (Exception exception){
+            System.out.print("Exception caught");
+        }
+
     }
 }
